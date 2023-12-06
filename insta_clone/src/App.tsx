@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div>Bienvenue sur ton site</div>
+      <h1 className="bg-amber-200 font-bold hover">Bienvenue sur ton site</h1>
     </>
   );
 }

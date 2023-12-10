@@ -1,14 +1,11 @@
-import { useState } from "react";
-
-import "./App.css";
+import React from "react";
+import Register from "../pages/Register";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1 className="bg-amber-200 font-bold hover">Bienvenue sur ton site</h1>
-    </>
+    <div className="">
+      <Register />
+    </div>
   );
 }
 

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import FormText from "../components/FormText";
 
-const Register: React.FC = () => {
+const Login = () => {
   const [username, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   return (
     <>
       <FormText
@@ -12,10 +11,10 @@ const Register: React.FC = () => {
         setUserName={setUserName}
         password={password}
         setPassword={setPassword}
-        label="Register"
+        label="Login"
       />
     </>
   );
 };
 
-export default Register;
+export default Login;

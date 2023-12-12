@@ -2,12 +2,14 @@ import React from "react";
 
 const register = () => {
   return (
-    <div className="flex items-center justify-center bg-red-600 h-screen">
-      <div>
-        {/* Le contenu de votre div centrée */}
-        <h1 className="">Contenu centré</h1>
-
-        <p>Autres éléments...</p>
+    <div className="flex  justify-center items-center h-screen bg-indigo-600">
+      <div className="w-96 p-6 shadow-lg bg-white rounded-md">
+        <h1>Login</h1>
+        <div className="mt-3">
+          <label htmlFor="username" className="block text-base mb-2">
+            username
+          </label>
+        </div>
       </div>
     </div>
   );

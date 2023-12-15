@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 
 interface formProps {
   username: string;
@@ -17,6 +17,13 @@ const FormText = ({
   onSubmit,
   label,
 }: formProps) => {
+  const [isButtonDisabled] = useState(false);
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const valueInputUserName = e.target.value;
+    setUserName(valueInputUserName);
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-indigo-600">
       <form
@@ -30,7 +37,7 @@ const FormText = ({
           <input
             type="text"
             placeholder="Enter username"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={handleInput}
             value={username}
             className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
           />
@@ -51,7 +58,14 @@ const FormText = ({
         <div className="mt-5">
           <button
             type="submit"
-            className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold"
+            disabled={isButtonDisabled}
+            className={`border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full  ${
+              !isButtonDisabled &&
+              username.length === 0 &&
+              password.length === 0
+                ? "cursor-not-allowed opacity-50"
+                : "rounded-md hover:bg-transparent hover:text-indigo-700"
+            }`}
           >
             {label}
           </button>

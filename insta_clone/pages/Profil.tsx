@@ -1,40 +1,43 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Profil = () => {
-  const [text, setText] = useState("");
-  const [error, setError] = useState(null);
-  const [statusButton, setStatusButton] = useState<boolean>(true);
+  // Récupérer l'ID de localStorage
+  const userId = window.localStorage.getItem("userId");
 
-  const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    setText(value);
-    if (value.length > 1) {
-      return setStatusButton(false);
-    } else {
-      setStatusButton(true);
+  const [data, setData] = useState<string>("string");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/user/profil/${userId}`
+        );
+        setData(response.data);
+        console.log("Data", response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (userId) {
+      fetchData();
     }
-  };
+  }, [userId]);
 
-  const handleClick = () => {
-    console.log("handleClick");
-  };
   return (
     <>
-      <h2>City quiz</h2>
-      <p>
-        In which city is there a billboard that turns air into drinkable water?
-      </p>
-      <form>
-        <textarea value={text} onChange={handleChangeText} />
-        <br />
-        <button
-          className="border-2 text-white border-indigo-700 bg-indigo-700"
-          disabled={statusButton}
-          onClick={handleClick}
-        >
-          Submit
-        </button>
-      </form>
+      <p className="text-red-600">Bienvenue sur la page Profil</p>
+      {data && (
+        <div>
+          <p className="text-red-600">
+            Bienvenue sur la page Profil {data.firstname}
+          </p>
+          <p>Username: {data.username}</p>
+          <p>Email: {data.email}</p>
+          {/* ... Autres données à afficher ... */}
+        </div>
+      )}
     </>
   );
 };

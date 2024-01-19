@@ -1,0 +1,47 @@
+import React, { createContext, useState, ReactNode, useContext } from "react";
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+interface User {
+  // Définissez ici la structure de votre objet utilisateur, par exemple :
+  username: string;
+  email: string;
+}
+
+interface AuthContextType {
+  user: User | null;
+  login: (user: User) => void;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = (loggedInUser: User) => {
+    setUser(loggedInUser);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  const authContextValue: AuthContextType = {
+    user,
+    login,
+    logout,
+  };
+
+  return (
+    <AuthContext.Provider value={authContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

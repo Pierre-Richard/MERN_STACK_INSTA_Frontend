@@ -1,20 +1,23 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useAuth } from "../components/Auth";
 
 const Profil = () => {
   // Récupérer l'ID de localStorage
   const userId = window.localStorage.getItem("userId");
   const [data, setData] = useState<string>("string");
   const [error, setError] = useState<string>();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/user/profil/${userId}`{
+          `http://localhost:4000/api/user/profil/${userId}`,
+          {
             headers: {
-              Authorization: `Bearer${}`
-            }
+              Authorization: `Bearer${user?.token}`,
+            },
           }
         );
         setData(response.data);

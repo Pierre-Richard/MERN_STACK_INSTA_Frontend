@@ -6,8 +6,9 @@ interface AuthProviderProps {
 
 interface User {
   // Définissez ici la structure de votre objet utilisateur, par exemple :
-  username: string;
   email: string;
+  password: string;
+  token: string | null;
 }
 
 interface AuthContextType {

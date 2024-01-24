@@ -16,12 +16,14 @@ const Profil = () => {
           `http://localhost:4000/api/user/profil/${userId}`,
           {
             headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer${user?.token}`,
             },
           }
         );
         setData(response.data);
         console.log("Data", response.data);
+        console.log(user?.email);
       } catch (error) {
         if (
           axios.isAxiosError(error) &&

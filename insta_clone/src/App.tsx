@@ -4,17 +4,20 @@ import Login from "../pages/Login";
 import Profil from "../pages/Profil";
 import Home from "../pages/Home";
 import { AuthProvider } from "../components/Auth";
-
+import NavBar from "../components/NavBar";
 function App() {
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/profil/:id" element={<Profil />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
-    </AuthProvider>
+    <>
+      <NavBar />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/profil/:id" element={<Profil />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </AuthProvider>
+    </>
   );
 }
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 type UserSubmitFormRegister = {
   username: string;
@@ -29,6 +30,7 @@ const FormRegister = () => {
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
   });
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -40,8 +42,8 @@ const FormRegister = () => {
   const onSubmit: SubmitHandler<UserSubmitFormRegister> = async (data) => {
     try {
       await axios.post("http://localhost:4000/api/auth/register", data);
-
-      return alert("User Enregistrer! Now login");
+      alert("User Enregistrer! Now login");
+      navigate("/login");
     } catch (err) {
       if (
         axios.isAxiosError(err) &&

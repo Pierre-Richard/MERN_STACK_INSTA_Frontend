@@ -65,7 +65,6 @@ const Profil: React.FC = () => {
           </p>
           <p>Username: {data.username}</p>
           <p>Email: {data.email}</p>
-          {/* ... Autres données à afficher ... */}
         </div>
       )}
     </>

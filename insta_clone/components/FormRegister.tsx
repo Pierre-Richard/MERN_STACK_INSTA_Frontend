@@ -60,7 +60,7 @@ const FormRegister = () => {
   };
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-indigo-600">
+      <div className="flex justify-center items-center h-screen">
         <form
           className="w-96 p-6 shadow-lg bg-white rounded-md"
           onSubmit={handleSubmit(onSubmit)}

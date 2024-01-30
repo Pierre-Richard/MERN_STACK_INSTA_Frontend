@@ -55,18 +55,32 @@ const Profil: React.FC = () => {
 
   return (
     <>
-      <p className="text-red-600">Bienvenue sur la page Profil</p>
+      <div>
+        <div className="flex justify-center border">
+          <div className="mt-6 ml-6  mx-6">
+            <img
+              className="rounded-full w-40 h-40 object-cover"
+              src="https://images.unsplash.com/photo-1615813967515-e1838c1c5116?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHBlcnNvbnxlbnwwfDF8MHx8fDA%3D"
+            />
+          </div>
+          <div className="mt-6 mr-6 flex items-center">
+            {data && (
+              <div className="">
+                <h4 className="">Bienvenue {data.firstname}</h4>
+                <h4>Username {data.username}</h4>
+                <h4>Email {data.email}</h4>
+                <div className="flex justify-between w-80">
+                  <h5>40 posts</h5>
+                  <h5>40 followers</h5>
+                  <h5>40 following</h5>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       {loading && <p>Chargement...</p>}
       {error && <div className="text-red-500">{error}</div>}
-      {data && (
-        <div>
-          <p className="text-red-600">
-            Bienvenue sur la page Profil {data.firstname}
-          </p>
-          <p>Username: {data.username}</p>
-          <p>Email: {data.email}</p>
-        </div>
-      )}
     </>
   );
 };

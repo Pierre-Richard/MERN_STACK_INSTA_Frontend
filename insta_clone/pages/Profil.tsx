@@ -6,6 +6,7 @@ interface UserData {
   firstname: string;
   username: string;
   email: string;
+  pic: string;
   // ... Ajoutez d'autres champs si nécessaire
 }
 
@@ -60,7 +61,7 @@ const Profil: React.FC = () => {
           <div className="mt-6 ml-6  mx-6">
             <img
               className="rounded-full w-40 h-40 object-cover"
-              src="https://images.unsplash.com/photo-1615813967515-e1838c1c5116?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHBlcnNvbnxlbnwwfDF8MHx8fDA%3D"
+              src={data?.pic}
             />
           </div>
           <div className="mt-6 mr-6 flex items-center">

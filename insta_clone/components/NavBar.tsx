@@ -14,7 +14,10 @@ const NavBar = () => {
           <Link to="/login">Login</Link>
         </li>
         <li className="mr-4 text-xl">
-          <Link to="/">Profile</Link>
+          <Link to="/profil/:id">Profile</Link>
+        </li>
+        <li className="mr-4 text-xl">
+          <Link to="/createPost">CreatePost</Link>
         </li>
       </ul>
     </div>

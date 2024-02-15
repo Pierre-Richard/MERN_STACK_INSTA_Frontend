@@ -5,6 +5,7 @@ import Profil from "../pages/Profil";
 import Home from "../pages/Home";
 import { AuthProvider } from "../components/Auth";
 import NavBar from "../components/NavBar";
+import CreatePost from "../pages/CreatePost";
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/profil/:id" element={<Profil />} />
           <Route path="/home" element={<Home />} />
+          <Route path="createPost" element={<CreatePost />} />
         </Routes>
       </AuthProvider>
     </>

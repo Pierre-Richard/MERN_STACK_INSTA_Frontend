@@ -21,7 +21,6 @@ type CreatePostSubmit = {
 
 const CreatePost = () => {
   const [error, setError] = useState<string>("");
-  const [, setCookies] = useCookies(["access_token"]);
   const validationForm = Yup.object().shape({
     title: Yup.string()
       .required("Title is required")
@@ -88,7 +87,6 @@ const CreatePost = () => {
     } catch (err) {
       console.error("error: ", err);
     }
-    console.log("Data:", formData.photo?.name);
   };
 
   return (

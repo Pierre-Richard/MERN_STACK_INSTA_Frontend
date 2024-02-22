@@ -16,7 +16,6 @@ const Profil: React.FC = () => {
   const [data, setData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
-  //const _id = "65a50b3f6a2064ce39be6210";
   const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {

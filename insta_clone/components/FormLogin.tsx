@@ -42,6 +42,7 @@ const FormLogin = () => {
       await window.localStorage.setItem("userId", response.data.userID);
       await window.localStorage.setItem("access_token", response.data.token);
       console.log(window.localStorage.getItem("access_token"));
+      console.log("FormLogin Data", response.data);
       navigate(`/profil/${response.data.userID}`);
     } catch (err) {
       console.error("error: ", err);

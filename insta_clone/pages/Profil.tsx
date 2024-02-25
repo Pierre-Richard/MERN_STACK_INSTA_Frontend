@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import Card from "../components/Card";
 interface UserData {
   firstname: string;
   username: string;
@@ -78,6 +78,7 @@ const Profil: React.FC = () => {
             )}
           </div>
         </div>
+        <Card />
       </div>
       {loading && <p>Chargement...</p>}
       {error && <div className="text-red-500">{error}</div>}

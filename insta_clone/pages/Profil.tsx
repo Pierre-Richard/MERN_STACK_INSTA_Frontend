@@ -7,6 +7,9 @@ interface UserData {
   username: string;
   email: string;
   pic: string;
+  followers: [];
+  following: [];
+
   // ... Ajoutez d'autres champs si nécessaire
 }
 
@@ -71,8 +74,8 @@ const Profil: React.FC = () => {
                 <h4>Email {data.email}</h4>
                 <div className="flex justify-between w-80">
                   <h5>40 posts</h5>
-                  <h5>40 followers</h5>
-                  <h5>40 following</h5>
+                  <h5>{data?.following?.length ?? 0} following</h5>
+                  <h5>{data?.followers?.length ?? 0} following</h5>
                 </div>
               </div>
             )}

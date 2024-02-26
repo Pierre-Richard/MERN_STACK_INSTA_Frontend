@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+interface UserData {
+  username: string;
+  // Ajoutez d'autres propriétés si nécessaire
+}
+
 interface CardData {
+  _id: string;
   photoUrl: string;
   title: string;
   body: string;
   likes: [];
+  postedBy: UserData;
 }
 const Card = () => {
   const [data, setData] = useState<CardData[]>([]); // Utilisation de CardData[] pour indiquer un tableau de CardData
@@ -29,7 +36,10 @@ const Card = () => {
   return (
     <div>
       {data.map((item, index) => (
-        <div key={index} className="max-w-xs rounded overflow-hidden shadow-lg">
+        <div
+          key={item._id}
+          className="max-w-xs rounded overflow-hidden shadow-lg"
+        >
           <img
             className="w-full"
             style={{ width: "200px", height: "150px" }}
@@ -37,7 +47,9 @@ const Card = () => {
             alt={`Instagram post ${index}`}
           />
           <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{item.title}</div>
+            <div className="font-bold text-xl mb-2">
+              Utilisateur: {item.postedBy.username}
+            </div>
           </div>
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">{item.body}</div>

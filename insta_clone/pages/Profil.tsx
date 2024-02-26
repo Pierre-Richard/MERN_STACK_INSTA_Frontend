@@ -83,7 +83,7 @@ const Profil: React.FC = () => {
         </div>
         <Card />
       </div>
-      {loading && <p>Chargement...</p>}
+      {loading && <p>Chargement...besoin de vous connecter</p>}
       {error && <div className="text-red-500">{error}</div>}
     </>
   );

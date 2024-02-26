@@ -1,10 +1,10 @@
 import React from "react";
-import CountriesPages from "../components/CountriesPages";
+import Dashboard from "../components/Dashboard";
 
 const Home = () => {
   return (
     <>
-      <CountriesPages />
+      <Dashboard />
     </>
   );
 };

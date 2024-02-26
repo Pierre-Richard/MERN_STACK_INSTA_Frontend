@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { CardData } from "../components/Dashboard";
 import Card from "../components/Card";
+
 interface UserData {
   firstname: string;
   username: string;
@@ -9,8 +11,6 @@ interface UserData {
   pic: string;
   followers: [];
   following: [];
-
-  // ... Ajoutez d'autres champs si nécessaire
 }
 
 const Profil: React.FC = () => {
@@ -19,7 +19,10 @@ const Profil: React.FC = () => {
   const [data, setData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | undefined>();
+  const [dataProfile, setDataProfile] = useState<CardData[]>([]);
+
   const { id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,6 +59,37 @@ const Profil: React.FC = () => {
     }
   }, [userId, id]); // Assurez-vous de dépendre de userId pour déclencher le rechargement lorsque l'ID utilisateur change
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resppnse = await axios.get(
+          "http://localhost:4000/api/post/myposts",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setDataProfile(resppnse.data);
+        console.log("My Posts dataProfile", resppnse.data);
+      } catch (error) {
+        if (
+          axios.isAxiosError(error) &&
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setError(error.response.data.message);
+        } else {
+          setError("Erreur inattendue"); // Définissez un message d'erreur générique
+          console.error("Erreur inattendue:", error);
+        }
+        setLoading(false); // Marquez le chargement comme terminé même en cas d'erreur
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <div>
@@ -81,8 +115,17 @@ const Profil: React.FC = () => {
             )}
           </div>
         </div>
-        <Card />
       </div>
+      {dataProfile.map((item) => (
+        <Card
+          _id={item._id}
+          photoUrl={item.photoUrl}
+          title={item.title}
+          body={item.body}
+          likes={item.likes}
+          postedBy={item.postedBy}
+        />
+      ))}
       {loading && <p>Chargement...besoin de vous connecter</p>}
       {error && <div className="text-red-500">{error}</div>}
     </>

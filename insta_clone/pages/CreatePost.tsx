@@ -16,7 +16,6 @@ type CreatePostSubmit = {
   title: string;
   body: string;
   photo: File | null;
-  comments: string[];
 };
 
 const CreatePost = () => {
@@ -29,16 +28,6 @@ const CreatePost = () => {
     photo: Yup.mixed().test("required", "Photo is required", (value) => {
       return value !== null && value !== undefined;
     }),
-    comments: Yup.string()
-      .required("Comments is required")
-      .test(
-        "wordCount",
-        "Comments must have at least three words",
-        (value: string | undefined) => {
-          if (!value) return true; // Si le champ est vide, la validation réussit
-          return value.trim().split(/\s+/).length >= 3; // Vérifie s'il y a au moins trois mots
-        }
-      ),
   });
   // Utilisation du hook useForm pour gérer le formulaire et obtenir les fonctions de manipulation
   const {
@@ -146,24 +135,6 @@ const CreatePost = () => {
               />
               <div className="text-red-600 px-1 mt-1">
                 {errors.photo?.message}
-              </div>
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="comments"
-              >
-                Comments
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="comments"
-                type="text"
-                placeholder="Enter comments..."
-                {...register("comments")}
-              />
-              <div className="text-red-600 px-1 mt-1">
-                {errors.comments?.message}
               </div>
             </div>
             <div className="flex items-center justify-between">

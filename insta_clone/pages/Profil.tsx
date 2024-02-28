@@ -124,6 +124,7 @@ const Profil: React.FC = () => {
           body={item.body}
           likes={item.likes}
           postedBy={item.postedBy}
+          showInput={true}
         />
       ))}
       {loading && <p>Chargement...besoin de vous connecter</p>}

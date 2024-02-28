@@ -1,19 +1,71 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 interface UserData {
+  _id: string;
   username: string;
-  // Ajoutez d'autres propriétés si nécessaire
+}
+
+interface Comment {
+  _id: string;
+  text: string;
+  postedBy: UserData;
 }
 
 interface CardProps {
   _id: string;
+  postId: string;
   photoUrl: string;
   title: string;
   body: string;
   likes: [];
   postedBy: UserData;
+  showInput?: boolean;
+  comments: Comment[];
 }
-const Card = ({ _id, photoUrl, title, body, likes, postedBy }: CardProps) => {
+const Card = ({
+  photoUrl,
+  title,
+  body,
+  likes,
+  postedBy,
+  showInput,
+  postId,
+  comments,
+}: CardProps) => {
+  const [commentText, setCommentText] = useState<string>("");
+
+  const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentText(event.target.value);
+  };
+
+  //const userId = window.localStorage.getItem("userId");
+  const accessToken = window.localStorage.getItem("access_token");
+  console.log("postedBy", postedBy.username);
+
+  const handle = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await axios.put(
+        "http://localhost:4000/api/post/comments",
+        {
+          postId: postId,
+          text: commentText,
+          postedBy: postedBy.username,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Comment added", response.data);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg">
       <div className="px-6 py-4">
@@ -28,21 +80,40 @@ const Card = ({ _id, photoUrl, title, body, likes, postedBy }: CardProps) => {
         alt="Instagram post"
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
-        <p className="text-gray-700 text-base">{body}</p>
+        <div className="font-bold text-xl mb-2">Titile: {title}</div>
+        <p className="text-gray-700 text-base">Boby: {body}</p>
       </div>
       <div className="px-6 py-4">
         <button className="bg-red-500 text-white px-4 py-2 rounded-md">
           Like {likes.length}
         </button>
+        <div className="px-6 py-4">
+          {comments &&
+            comments.map((comment) => (
+              <div key={comment._id} className="mb-2">
+                <span className="font-bold">{comment.postedBy.username}: </span>
+                <span>{comment.text}</span>
+              </div>
+            ))}
+        </div>
       </div>
-      <form className="px-6 py-4">
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </form>
+      {!showInput && (
+        <form className="px-6 py-4" onSubmit={handle}>
+          <input
+            type="text"
+            placeholder="Add a comment..."
+            value={commentText}
+            onChange={handleCommentChange}
+            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          <button
+            type="submit"
+            className="bg-red-500 text-white px-4 py-2 rounded-md"
+          >
+            ok
+          </button>
+        </form>
+      )}
     </div>
   );
 };

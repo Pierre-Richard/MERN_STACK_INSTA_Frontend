@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-interface UserData {
+interface CardUserData {
   _id: string;
   username: string;
 }
@@ -9,19 +9,19 @@ interface UserData {
 interface Comment {
   _id: string;
   text: string;
-  postedBy: UserData;
+  postedBy: CardUserData;
 }
 
 interface CardProps {
-  _id: string;
-  postId: string;
+  _id?: string;
+  postId?: string;
   photoUrl: string;
   title: string;
   body: string;
   likes: [];
-  postedBy: UserData;
+  postedBy: CardUserData;
   showInput?: boolean;
-  comments: Comment[];
+  comments?: Comment[];
 }
 const Card = ({
   photoUrl,
@@ -61,13 +61,17 @@ const Card = ({
         }
       );
       console.log("Comment added", response.data);
+
+      // Réinitialiser le texte du commentaire
+      setCommentText("");
     } catch (error) {
       console.error("Error adding comment:", error);
     }
   };
+  console.log("commentText:", commentText);
 
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-lg">
+    <div className="relative max-w-xs overflow-hidden rounded-2xl shadow-lg group">
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">
           Posted by {postedBy.username}
@@ -91,7 +95,9 @@ const Card = ({
           {comments &&
             comments.map((comment) => (
               <div key={comment._id} className="mb-2">
-                <span className="font-bold">{comment.postedBy.username}: </span>
+                <span className="font-bold">
+                  {comment.postedBy.username}username
+                </span>
                 <span>{comment.text}</span>
               </div>
             ))}

@@ -8,6 +8,12 @@ interface UserData {
   // Ajoutez d'autres propriétés si nécessaire
 }
 
+interface Comment {
+  _id: string;
+  text: string;
+  postedBy: UserData;
+}
+
 export interface CardData {
   _id: string;
   photoUrl: string;
@@ -18,6 +24,7 @@ export interface CardData {
 }
 const Dashboard = () => {
   const [data, setData] = useState<CardData[]>([]); // Utilisation de CardData[] pour indiquer un tableau de CardData
+  const [comments, setComments] = useState<Comment[]>([]);
   useEffect(() => {
     const getData = async () => {
       const token = window.localStorage.getItem("access_token");
@@ -35,6 +42,7 @@ const Dashboard = () => {
     };
     getData();
   }, []);
+  console.log("console.log(comments):", comments);
 
   return (
     <div>
@@ -46,7 +54,9 @@ const Dashboard = () => {
           title={item.title}
           body={item.body}
           likes={item.likes}
-          comments={[]}
+          comments={comments.filter(
+            (comment) => comment.postedBy._id === item.postedBy._id
+          )}
           postedBy={{ _id: item._id, username: item.postedBy._id }}
         />
       ))}

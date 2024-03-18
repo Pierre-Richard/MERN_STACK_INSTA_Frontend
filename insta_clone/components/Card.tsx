@@ -71,7 +71,7 @@ const Card = ({
   console.log("commentText:", commentText);
 
   return (
-    <div className="relative max-w-xs overflow-hidden rounded-2xl shadow-lg group">
+    <div className="">
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">
           Posted by {postedBy.username}

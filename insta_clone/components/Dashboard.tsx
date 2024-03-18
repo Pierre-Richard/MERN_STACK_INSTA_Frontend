@@ -28,7 +28,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getData = async () => {
       const token = window.localStorage.getItem("access_token");
-      const userId = window.localStorage.getItem("userId");
+
       const response = await axios.get(
         "http://localhost:4000/api/post/getPosts",
         {

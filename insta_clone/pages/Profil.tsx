@@ -92,21 +92,21 @@ const Profil: React.FC = () => {
   }, []);
   return (
     <>
-      <div>
-        <div className="flex justify-center border">
-          <div className="mt-6 ml-6  mx-6">
+      <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row justify-center border">
+          <div className="mt-6 ml-6 md:mt-0 md:ml-0 md:mr-6 md:flex-shrink-0">
             <img
-              className="rounded-full w-40 h-40 object-cover"
+              className="rounded-full w-40 h-40 md:w-48 md:h-48 object-cover"
               src={data?.pic}
             />
           </div>
-          <div className="mt-6 mr-6 flex items-center">
+          <div className="mt-6 mr-6 flex flex-col items-center md:items-start">
             {data && (
-              <div className="">
-                <h4 className="">Bienvenue {data.firstname}</h4>
-                <h4>Username {data.username}</h4>
-                <h4>Email {data.email}</h4>
-                <div className="flex justify-between w-80">
+              <div>
+                <h4 className="mb-2">Bienvenue {data.firstname}</h4>
+                <h4 className="mb-2">Username {data.username}</h4>
+                <h4 className="mb-2">Email {data.email}</h4>
+                <div className="flex justify-between w-full md:w-80 mb-2">
                   <h5>40 posts</h5>
                   <h5>{data?.following?.length ?? 0} following</h5>
                   <h5>{data?.followers?.length ?? 0} following</h5>
@@ -116,19 +116,27 @@ const Profil: React.FC = () => {
           </div>
         </div>
       </div>
-      {dataProfile.map((item) => (
-        <Card
-          _id={item._id}
-          photoUrl={item.photoUrl}
-          title={item.title}
-          body={item.body}
-          likes={item.likes}
-          postedBy={item.postedBy}
-          showInput={true}
-        />
-      ))}
-      {loading && <p>Chargement...besoin de vous connecter</p>}
-      {error && <div className="text-red-500">{error}</div>}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {dataProfile.map((item) => (
+          <div className="shadow  rounded-lg" key={item._id}>
+            <Card
+              _id={item._id}
+              photoUrl={item.photoUrl}
+              title={item.title}
+              body={item.body}
+              likes={item.likes}
+              postedBy={item.postedBy}
+              showInput={true}
+            />
+          </div>
+        ))}
+      </div>
+      {loading && (
+        <p className="text-center mt-6">
+          Chargement...besoin de vous connecter
+        </p>
+      )}
+      {error && <div className="text-red-500 text-center mt-6">{error}</div>}
     </>
   );
 };

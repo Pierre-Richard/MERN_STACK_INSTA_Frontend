@@ -45,21 +45,25 @@ const Dashboard = () => {
   console.log("console.log(comments):", comments);
 
   return (
-    <div>
-      {data.map((item) => (
-        <Card
-          key={item._id}
-          postId={item._id}
-          photoUrl={item.photoUrl}
-          title={item.title}
-          body={item.body}
-          likes={item.likes}
-          comments={comments.filter(
-            (comment) => comment.postedBy._id === item.postedBy._id
-          )}
-          postedBy={{ _id: item._id, username: item.postedBy._id }}
-        />
-      ))}
+    <div className="container mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {data.map((item) => (
+          <div className="shadow rounded-lg" key={item._id}>
+            <Card
+              key={item._id}
+              postId={item._id}
+              photoUrl={item.photoUrl}
+              title={item.title}
+              body={item.body}
+              likes={item.likes}
+              comments={comments.filter(
+                (comment) => comment.postedBy._id === item.postedBy._id
+              )}
+              postedBy={{ _id: item._id, username: item.postedBy._id }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
